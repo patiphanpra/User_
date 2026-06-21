@@ -68,7 +68,8 @@ func (h *AuthHandler) MemberLogin(c *gin.Context) {
 		return
 	}
 
-	c.SetCookie("refresh_token", refreshToken, 7*24*3600, "/", "", false, true)
+	c.SetSameSite(http.SameSiteNoneMode)
+	c.SetCookie("refresh_token", refreshToken, 7*24*3600, "/", "", true, true)
 	c.JSON(http.StatusOK, gin.H{
 		"access_token": accessToken,
 		"user": gin.H{
@@ -122,7 +123,8 @@ func (h *AuthHandler) Login(c *gin.Context) {
 		return
 	}
 
-	c.SetCookie("refresh_token", refreshToken, 7*24*3600, "/", "", false, true)
+	c.SetSameSite(http.SameSiteNoneMode)
+	c.SetCookie("refresh_token", refreshToken, 7*24*3600, "/", "", true, true)
 
 	c.JSON(http.StatusOK, gin.H{
 		"access_token": accessToken,
@@ -144,12 +146,24 @@ func (h *AuthHandler) Refresh(c *gin.Context) {
 	}
 
 	user, err := h.userRepo.GetByID(claims.Subject)
-	if err != nil {
+	if err == nil {
+		accessToken, err := h.jwtManager.GenerateAccessToken(user.ID, user.Email, user.Role)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate token"})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"access_token": accessToken})
+		return
+	}
+
+	// Fall back to members table (member login) — same pattern as Me()
+	var member models.Member
+	if err := h.db.First(&member, "id = ?", claims.Subject).Error; err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "user not found"})
 		return
 	}
 
-	accessToken, err := h.jwtManager.GenerateAccessToken(user.ID, user.Email, user.Role)
+	accessToken, err := h.jwtManager.GenerateAccessToken(member.ID, member.Phone, "member")
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate token"})
 		return
@@ -292,6 +306,7 @@ func (h *AuthHandler) ResetPassword(c *gin.Context) {
 }
 
 func (h *AuthHandler) Logout(c *gin.Context) {
-	c.SetCookie("refresh_token", "", -1, "/", "", false, true)
+	c.SetSameSite(http.SameSiteNoneMode)
+	c.SetCookie("refresh_token", "", -1, "/", "", true, true)
 	c.JSON(http.StatusOK, gin.H{"message": "logged out"})
 }
