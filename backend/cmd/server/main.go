@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -60,9 +61,23 @@ func main() {
 
 	router := gin.Default()
 
-	// CORS
+	// CORS — origins come from CORS_ORIGINS (comma-separated), not hardcoded,
+	// so production deployments (Vercel, etc.) actually work. Falls back to
+	// localhost:3000 for local dev if the env var isn't set.
+	corsOrigins := strings.Split(cfg.CorsOrigins, ",")
+	for i := range corsOrigins {
+		corsOrigins[i] = strings.TrimSpace(corsOrigins[i])
+	}
+	log.Printf("CORS_ORIGINS raw env value: %q", cfg.CorsOrigins)
+	log.Printf("CORS allowed origins (parsed): %q", corsOrigins)
+	router.Use(func(c *gin.Context) {
+		if o := c.Request.Header.Get("Origin"); o != "" {
+			log.Printf("Incoming request Origin header: %q", o)
+		}
+		c.Next()
+	})
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowOrigins:     corsOrigins,
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
 		AllowHeaders:     []string{"Authorization", "Content-Type"},
 		ExposeHeaders:    []string{"Content-Length"},
@@ -70,6 +85,18 @@ func main() {
 	}))
 
 	router.Use(middleware.ErrorHandler())
+
+	// TEMPORARY DEBUG ENDPOINT — remove after diagnosing CORS issue.
+	// Shows exactly what CORS_ORIGINS the running process actually loaded,
+	// to rule out stale env vars / Railway variable propagation issues
+	// rather than continuing to guess at the cause.
+	router.GET("/debug/cors", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"raw_cors_origins_env": cfg.CorsOrigins,
+			"parsed_origins":       corsOrigins,
+			"frontend_url":         cfg.FrontendURL,
+		})
+	})
 
 	// Health check
 	router.GET("/health", func(c *gin.Context) {
