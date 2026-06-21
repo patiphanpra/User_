@@ -44,6 +44,7 @@ type Config struct {
 
 	// Frontend
 	FrontendURL string
+	CorsOrigins string
 }
 
 func LoadConfig() *Config {
@@ -72,6 +73,7 @@ func LoadConfig() *Config {
 		ThaiBulkSMSAPISecret: getEnv("THAIBULKSMS_API_SECRET", ""),
 		ThaiBulkSMSSender:    getEnv("THAIBULKSMS_SENDER", ""),
 		FrontendURL:     getEnv("FRONTEND_URL", "http://localhost:3000"),
+		CorsOrigins:     getEnv("CORS_ORIGINS", "http://localhost:3000"),
 	}
 }
 
