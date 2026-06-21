@@ -1,8 +1,0 @@
--- 016_add_otp_session.down.sql
-
-ALTER TABLE otps ALTER COLUMN expires_at SET NOT NULL;
-ALTER TABLE otps ALTER COLUMN code SET NOT NULL;
-ALTER TABLE otps DROP COLUMN IF EXISTS provider_token;
-ALTER TABLE otps DROP COLUMN IF EXISTS verified_at;
-ALTER TABLE otps DROP COLUMN IF EXISTS verified;
-ALTER TABLE otps DROP COLUMN IF EXISTS user_id;

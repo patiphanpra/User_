@@ -12,7 +12,3 @@ VALUES
     ('withdrawal', 'เบิกเงิน', 'การเบิกเงินออกจากบัญชีประหยัด', 7, TRUE),
     ('fine', 'ค่าปรับ', 'ค่าปรับตามข้อบัญญัติสหกรณ์', 8, TRUE),
     ('other', 'อื่น ๆ', 'รายการอื่น ๆ', 99, TRUE);
-
--- Update sequences if needed
-SELECT setval('receipt_types_id_seq', (SELECT MAX(id) FROM receipt_types), true) 
-WHERE EXISTS (SELECT 1 FROM information_schema.sequences WHERE sequence_name = 'receipt_types_id_seq');

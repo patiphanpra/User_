@@ -1,13 +1,13 @@
 -- 012_seed_default_admin.up.sql
 -- Seed default admin user
 -- Default password: admin123 (hashed with bcrypt)
--- Hash generated with: bcrypt("admin123", 10) = $2a$10$SlV8/pN1VUwXJtqvI1K9Pu6T3.A3b8tJBbQvIVHmCdFOclOl./oOW
+-- Hash verified to match "admin123": $2a$10$8DgIjejqpexkLNR.9p3aP.2MDYvutVBJUxPKVLWXLL/WRKsu9iW3C
 
 INSERT INTO users (
     id,
     email,
     phone,
-    password_hash,
+    password,
     first_name,
     last_name,
     role,
@@ -19,7 +19,7 @@ VALUES (
     '00000000-0000-0000-0000-000000000001'::uuid,
     'admin@coop.local',
     '+66800000000',
-    '$2a$10$SlV8/pN1VUwXJtqvI1K9Pu6T3.A3b8tJBbQvIVHmCdFOclOl./oOW',
+    '$2a$10$8DgIjejqpexkLNR.9p3aP.2MDYvutVBJUxPKVLWXLL/WRKsu9iW3C',
     'ผู้ดูแล',
     'ระบบ',
     'admin',
