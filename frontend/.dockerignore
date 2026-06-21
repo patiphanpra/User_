@@ -1,0 +1,66 @@
+# Build and Test Files
+/.github
+/.git
+/.gitignore
+
+# Documentation
+/README.md
+/CONTRIBUTING.md
+/LICENSE
+/docs
+
+# Development
+/tests
+/__tests__
+/*.test.ts
+/*.spec.ts
+/.storybook
+/stories
+
+# IDE and Editor
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+.env.local
+
+# Build Artifacts
+/.next/cache
+/out
+/dist
+/build
+.turbo
+
+# Dependency Cache
+.npm
+.pnpm-store
+yarn-error.log
+
+# OS Files
+Thumbs.db
+.docker
+.dockerignore
+Dockerfile*
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+
+# Environment Files
+.env.example
+.env.development
+.env.production
+
+# Logs
+*.log
+logs/
+
+# Miscellaneous
+docker-compose*.yml
+Makefile
+nginx/

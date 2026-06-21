@@ -1,0 +1,49 @@
+# Backend .gitignore
+# Go artifacts
+*.o
+*.a
+*.so
+.DS_Store
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Binary
+bin/
+dist/
+/server
+
+# Dependencies
+go.sum
+
+# Testing
+*.test
+*.out
+coverage/
+.coverage
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+
+# OS specific
+.DS_Store
+Thumbs.db

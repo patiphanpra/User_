@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+vendor/
+.env.local
+.env
+
+# Build artefacts
+dist/
+build/
+.next/
+backend/.env
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Test coverage
+coverage/
+*.out
+
+# Logs
+*.log
+logs/
+
+# Docker
+.docker/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS files
+Thumbs.db
+.AppleDouble
+.LSOverride

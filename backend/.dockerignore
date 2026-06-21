@@ -1,0 +1,77 @@
+# Build and Test Files
+/.github
+/.git
+/.gitignore
+/.gitmodules
+
+# Documentation
+/README.md
+/CONTRIBUTING.md
+/LICENSE
+/docs
+/migrations/README.md
+/migrations/SCHEMA.md
+
+# Development
+/tests
+/test_utils
+/examples
+/.env
+/.env.local
+/.env.development
+/.env.production
+
+# IDE and Editor
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Build Artifacts
+/bin
+/dist
+/build
+/tmp
+*.o
+*.a
+*.so
+*.dylib
+
+# Dependency Cache
+vendor
+*.mod
+*.sum
+
+# OS Files
+Thumbs.db
+.docker
+.dockerignore
+Dockerfile*
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# Node modules (handled separately in frontend)
+# node_modules/
+
+# Miscellaneous
+.air.toml
+docker-compose*.yml
+Makefile
+nginx/
+.env.example
