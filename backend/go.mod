@@ -66,16 +66,3 @@ require (
 	google.golang.org/protobuf v1.32.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace (
-	golang.org/x/arch => github.com/golang/arch v0.7.0
-	golang.org/x/crypto => github.com/golang/crypto v0.21.0
-	golang.org/x/net => github.com/golang/net v0.23.0
-	golang.org/x/sync => github.com/golang/sync v0.6.0
-	golang.org/x/sys => github.com/golang/sys v0.18.0
-	golang.org/x/text => github.com/golang/text v0.14.0
-	google.golang.org/protobuf => github.com/protocolbuffers/protobuf-go v1.32.0
-	gopkg.in/yaml.v3 => github.com/go-yaml/yaml v3.0.1+incompatible
-	gorm.io/driver/postgres => github.com/go-gorm/postgres v1.5.7
-	gorm.io/gorm => github.com/go-gorm/gorm v1.25.7
-)
