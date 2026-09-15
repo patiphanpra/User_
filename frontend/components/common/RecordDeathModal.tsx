@@ -113,12 +113,13 @@ export function RecordDeathModal({ memberId, memberName, open, onOpenChange }: R
     mutation.mutate();
   };
 
-  const selectClass =
-    'h-10 rounded-md border border-input bg-background px-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
+  // ดึง bg-white ออกจากตรงนี้ แล้วใช้เฉพาะการจัดการขอบเงาและการ Focus เท่านั้น
+  const selectClass = 'h-10 rounded-md border border-input px-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
 
   return (
     <Dialog open={open} onOpenChange={(next) => { if (!mutation.isPending) { onOpenChange(next); if (!next) reset(); } }}>
-      <DialogContent>
+      {/* 🟢 แก้ไขตรงนี้: เติม className เพื่อให้กล่องทึบแสง */}
+      <DialogContent className="bg-white text-black sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>บันทึกการเสียชีวิต</DialogTitle>
           <DialogDescription>
